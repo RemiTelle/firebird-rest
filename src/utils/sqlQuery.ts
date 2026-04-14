@@ -14,25 +14,6 @@ const pool = Firebird.pool(POOL_MAX, {
   ...Options,
 }) as FirebirdConnectionPool;
 
-const zabbixSender = new ZabbixSender({
-  host: process.env.ZABBIX_SERVER_HOST,
-  agentHost: os.hostname() + '_' + process.env.INSTANCE_ID,
-});
-
-function sendStats() {
-  zabbixSender.addItem('firebird.pool.connections_in_use', pool.dbinuse);
-
-  zabbixSender.send((err, response, items) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-
-  setTimeout(sendStats, 5000);
-}
-
-sendStats();
-
 export const sqlQuery = (param) => {
   return (req, res) => {
     let result = [];

@@ -2,10 +2,8 @@
   "name": "firebird-rest-pool",
   "version": "0.0.2",
   "description": "REST Server for FirebirdSQL",
-  "main": "./src/main.ts",
-  "bin": {
-    "firebird-rest-pool": "./src/main.ts"
-  },
+  "main": "dist/main.js",
+  "bin": { "firebird-rest-pool": "dist/main.js" },
   "keywords": [
     "firebird",
     "sql",
@@ -20,11 +18,12 @@
   "author": "Marin Vitlov <marin.vitlov@gmail.com> (https://github.com/mvitlov/)",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
     "install-watchdog": "pm2 install ma-zal/pm2-watchdog",
     "config-watchdog": "pm2 set pm2-watchdog:url-firebird-rest http://127.0.0.1:4243/health",
     "setup-watchdog": "npm run install-watchdog && npm run config-watchdog",
     "postinstall": "npm run setup-watchdog",
-    "start": "pm2 start pm2.config.js",
     "install-windows-service": "winser -i",
     "uninstall-windows-service": "winser -r"
   },
@@ -39,5 +38,9 @@
     "moment": "^2.29.0",
     "node-firebird": "git+https://github.com/Finexa/node-firebird-latin1.git#2766256",
     "winser": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "typescript": "^5.9.3"
   }
 }
